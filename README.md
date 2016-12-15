@@ -3,11 +3,20 @@
 ###v.01 - Initial Commit
 * Categories: Numbers, Family Members, Colors, Phrases
 * **Main Activity**
-    * List of TextViews for each Categoy
+    * List of `TextViews` for each Categroy
     * each category has a color
     * click on one categoryTextView --> Open Category Activity
         + explicit Intent
 * **Numbers Activity**
-    * Array List of ten English Words for Numbers
-    * Populated List View with default Array Adapter and defaul List Item View
+    * `ArrayList<String>` of ten English Words for Numbers
+    * Populated `ListView` with default `ArrayAdapter<String>` and default List Item View
 
+###v.02 - Create Custom List View
+* Layout of Single List Item defined in`list_row.xml`
+    * contains of 2 `TextViews`
+* Word class created
+* **Main Activity**
+    * no changes
+* **Numbers Activity**
+    * show `ListView` of `ArrayList<Word>` -- Custom `WordAdapter`
+    `

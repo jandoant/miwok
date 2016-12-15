@@ -17,7 +17,7 @@
         tools:text="Miwok Word" />
 
     <TextView
-        android:id="@+id/txt_translated_word"
+        android:id="@+id/txt_default_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Translation" />
