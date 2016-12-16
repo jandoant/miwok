@@ -30,3 +30,8 @@
 * update `ArrayList<Word> words` in each category to initialize Image-Resource for each word
 * update `WordAdapter` to populate Image resource in `getView()`
 * no images shown on Phrases
+
+###v.05 - Visual Polish of app
+* style list items
+    * image height, width, margin,layout gravity
+    * background has category color

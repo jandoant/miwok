@@ -2,6 +2,7 @@ package com.example.android.miwok;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -15,11 +16,14 @@ public class ColorsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        Log.d("Simple Name: ", this.getClass().getSimpleName());
+
         //init UI
         listView = (ListView) findViewById(R.id.list_view);
         createData();
         //ArrayAdapter
-        WordAdapter wordAdapter = new WordAdapter(this, words);
+        WordAdapter wordAdapter = new WordAdapter(this, words, R.color.category_colors);
         listView.setAdapter(wordAdapter);
     }
 
