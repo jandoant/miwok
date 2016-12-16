@@ -20,3 +20,5 @@
 * **Numbers Activity**
     * show `ListView` of `ArrayList<Word>` -- Custom `WordAdapter`
     `
+###v.03 - Vocabulary List completed
+* Miwok words for all categories added in `ArrayList<Word> words` in each Category Activity
