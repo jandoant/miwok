@@ -22,3 +22,11 @@
     `
 ###v.03 - Vocabulary List completed
 * Miwok words for all categories added in `ArrayList<Word> words` in each Category Activity
+
+###v.04 - Display Image for each word
+* add ImageView to `list_row.xml`
+* add Images to `res/drawable`-Folder
+* add `int image` field to `Word` class --> Constructor, getter, setter
+* update `ArrayList<Word> words` in each category to initialize Image-Resource for each word
+* update `WordAdapter` to populate Image resource in `getView()`
+* no images shown on Phrases

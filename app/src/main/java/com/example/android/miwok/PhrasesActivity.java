@@ -24,7 +24,9 @@ public class PhrasesActivity extends AppCompatActivity {
     }
 
     private void createData() {
+
         words = new ArrayList<Word>();
+
         words.add(new Word("Where are you going?", "minto wuksus"));
         words.add(new Word("What is your name?", "tinnә oyaase'nә"));
         words.add(new Word("My name is...", "oyaaset..."));
