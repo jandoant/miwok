@@ -37,7 +37,12 @@
     * background has category color
 
 ###v.06 - Play Sound when clicking on List Item
-- make List Items clickable
-- identify clicked item
-- add sound resource field to `Word` class
-- when item is clicked create `MediaPlayer` instance and play sound
+* make List Items clickable
+* identify clicked item
+* add sound resource field to `Word` class
+* when item is clicked create `MediaPlayer` instance and play sound
+
+###v.07 - Handle Audio Focus
+* request Audio Focus
+* handle AudioFocusChange-Situations
+

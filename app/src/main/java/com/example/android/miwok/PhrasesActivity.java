@@ -1,5 +1,7 @@
 package com.example.android.miwok;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,16 +11,19 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class PhrasesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, MediaPlayer.OnCompletionListener {
+public class PhrasesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener {
 
-    ListView listView;
-    ArrayList<Word> words;
+    private ListView listView;
+    private ArrayList<Word> words;
     private MediaPlayer mediaPlayer;
+    private AudioManager audioManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
 
         createData();
         setUpListView();
@@ -79,11 +84,33 @@ public class PhrasesActivity extends AppCompatActivity implements AdapterView.On
             // setting the media player to null is an easy way to tell that the media player
             // is not configured to play an audio file at the moment.
             mediaPlayer = null;
+
+            audioManager.abandonAudioFocus(this);
         }
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
         releaseMediaPlayer();
+    }
+
+    @Override
+    public void onAudioFocusChange(int focusChange) {
+        switch (focusChange) {
+
+            case AudioManager.AUDIOFOCUS_GAIN: //Focus wieder zurück erlangt
+                mediaPlayer.start();
+                break;
+            case AudioManager.AUDIOFOCUS_LOSS: //langfristiger Focusverlust
+                mediaPlayer.stop();
+                releaseMediaPlayer();
+                break;
+            case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT: //kurzzeiteiger Focusverlust
+            case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK: //kurzzeitiger Focusverlust und unserer App wird von Focuserlanger erlaubt leiser weiter Audio abzuspielen
+                mediaPlayer.pause();
+                mediaPlayer.seekTo(0);
+                break;
+
+        }//Ende switch
     }
 }

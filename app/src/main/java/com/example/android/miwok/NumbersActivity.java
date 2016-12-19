@@ -1,24 +1,30 @@
 package com.example.android.miwok;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class NumbersActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, MediaPlayer.OnCompletionListener {
+public class NumbersActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener {
 
-    ListView listView;
-    ArrayList<Word> words;
-    MediaPlayer mediaPlayer;
+    private ListView listView;
+    private ArrayList<Word> words;
+    private MediaPlayer mediaPlayer;
+    private AudioManager audioManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
 
         createData();
         setUpListView();
@@ -71,23 +77,50 @@ public class NumbersActivity extends AppCompatActivity implements AdapterView.On
             // setting the media player to null is an easy way to tell that the media player
             // is not configured to play an audio file at the moment.
             mediaPlayer = null;
+
+            audioManager.abandonAudioFocus(this);
         }
     }
 
     private void playSound(Word word) {
-        releaseMediaPlayer();
 
         //Request Audio Focus
+        int result = audioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            releaseMediaPlayer();
+            mediaPlayer = MediaPlayer.create(this, word.getSoundResourceId());
+            mediaPlayer.setOnCompletionListener(this);
+            mediaPlayer.start();
+        } else {
+            Toast.makeText(this, "Die Datei kann leider nicht agespielt werden", Toast.LENGTH_SHORT).show();
+        }
 
-        mediaPlayer = MediaPlayer.create(this, word.getSoundResourceId());
-        mediaPlayer.setOnCompletionListener(this);
-        mediaPlayer.start();
 
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
         releaseMediaPlayer();
+    }
+
+    @Override
+    public void onAudioFocusChange(int focusChange) {
+        switch (focusChange) {
+
+            case AudioManager.AUDIOFOCUS_GAIN: //Focus wieder zurück erlangt
+                mediaPlayer.start();
+                break;
+            case AudioManager.AUDIOFOCUS_LOSS: //langfristiger Focusverlust
+                mediaPlayer.stop();
+                releaseMediaPlayer();
+                break;
+            case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT: //kurzzeiteiger Focusverlust
+            case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK: //kurzzeitiger Focusverlust und unserer App wird von Focuserlanger erlaubt leiser weiter Audio abzuspielen
+                mediaPlayer.pause();
+                mediaPlayer.seekTo(0);
+                break;
+
+        }//Ende switch
     }
 }
