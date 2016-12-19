@@ -24,9 +24,15 @@ public class ColorsActivity extends AppCompatActivity implements AdapterView.OnI
         setContentView(R.layout.activity_category);
 
         audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
-
+        setUpActionBar();
         createData();
         setUpListView();
+    }
+
+    private void setUpActionBar() {
+        if (getActionBar() != null) {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override

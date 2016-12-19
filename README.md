@@ -48,3 +48,4 @@
 
 ###v.08 - Add PlayButton and Touch Feedback to Design
 
+###v.1.01 - Realizing Up Navigation Pattern
