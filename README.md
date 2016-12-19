@@ -46,3 +46,5 @@
 * request Audio Focus
 * handle AudioFocusChange-Situations
 
+###v.08 - Add PlayButton and Touch Feedback to Design
+

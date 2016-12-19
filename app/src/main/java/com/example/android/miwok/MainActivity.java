@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         //init UI
         txt_numbers = (TextView) findViewById(R.id.txt_numbers);
-        txt_family_members = (TextView) findViewById(R.id.txt_family_members);
+        txt_family_members = (TextView) findViewById(R.id.txt_family);
         txt_colors = (TextView) findViewById(R.id.txt_colors);
         txt_phrases = (TextView) findViewById(R.id.txt_phrases);
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
@@ -16,8 +17,10 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/img_word"
+        android:layout_toRightOf="@+id/img_word"
         android:orientation="vertical"
         android:paddingLeft="16dp">
 
@@ -35,6 +38,17 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             tools:text="Translation" />
+
     </LinearLayout>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        app:srcCompat="@drawable/ic_play_white_24dp" />
+
+
+</RelativeLayout>
